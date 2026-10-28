@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run demo (smoke test)
+        run: python -m crypto_info.demo
+
+      - name: Basic security grep (no hardcoded secrets pattern)
+        run: |
+          # Simple tripwire - expand as needed
+          if grep -rE '(api[_-]?key|secret|private[_-]?key)\s*=\s*[\"\'][^\"\']+[\"\']' --include='*.py' src/ ; then
+            echo "Potential hardcoded secret detected"
+            exit 1
+          fi
+          echo "No obvious hardcoded secrets found"
