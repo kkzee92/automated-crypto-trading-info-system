@@ -6,7 +6,7 @@ An automated information system for cryptocurrency markets that:
 - Ingests market data (public APIs or synthetic fixtures)
 - Generates trading signals and risk alerts tailored by **asset class**
 - Provides a robust **cyber and data security architecture**
-- Incorporates an AI-agent development harness inspired by secure practices (see reference: [zeekiankok92/aixtech-agent-harness-demo](https://github.com/zeekiankok92/aixtech-agent-harness-demo))
+- Incorporates an AI-agent development harness inspired by secure practices (reference: [zeekiankok92/aixtech-agent-harness-demo](https://github.com/zeekiankok92/aixtech-agent-harness-demo))
 
 ## Key Features
 
@@ -18,7 +18,7 @@ An automated information system for cryptocurrency markets that:
 
 ## Architecture Overview
 
-See [docs/security-architecture.md](docs/security-architecture.md) and [docs/trading-strategies.md](docs/trading-strategies.md).
+See [docs/security-architecture.md](docs/security-architecture.md), [docs/trading-strategies.md](docs/trading-strategies.md), and [docs/security-checklist.md](docs/security-checklist.md).
 
 ```mermaid
 flowchart TD
@@ -50,6 +50,14 @@ python -m crypto_info.demo
 | Stablecoins | Peg deviation alerts, Yield opportunity signals | Low-Medium |
 | DeFi Tokens | TVL change, Protocol health proxies | High |
 
+## Modules
+
+- `src/crypto_info/strategies.py` — Core signals (BTC, ETH, stablecoin)
+- `src/crypto_info/asset_strategies.py` — Expanded altcoin, DeFi, volatility signals
+- `src/crypto_info/demo.py` — Runnable demonstration
+- `tests/` — Basic unit tests
+- `.github/workflows/ci.yml` — Smoke test and secret scan skeleton
+
 ## Security Highlights
 
 - Environment variables / secrets manager only (never hardcode keys)
@@ -57,6 +65,7 @@ python -m crypto_info.demo
 - Recommended: dedicated sub-accounts, IP allow-lists, key rotation
 - Audit logging of all signals and decisions
 - Zero-trust principles applied to internal components
+- Operational checklist: [docs/security-checklist.md](docs/security-checklist.md)
 
 ## Development
 
